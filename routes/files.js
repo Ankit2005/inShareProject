@@ -6,7 +6,6 @@ const path = require('path')
 const File = require('../models/file')
 const { v4: uuid4 } = require('uuid')
 
-
 let storage = multer.diskStorage({
     destination: (req, file, cb) => cb(null, 'uploads/'),
     filename: (req, file, cb) => {
@@ -14,7 +13,6 @@ let storage = multer.diskStorage({
         cb(null, uniqueName)
     }
 })
-
 
 let upload = multer({
     storage,
@@ -41,7 +39,6 @@ router.post('/', (req, res) => {
 
         const response = await file.save();
         return res.json({ file: `${process.env.APP_BASE_URL}/files/${response.uuid}` })
-
     })
 })
 
@@ -55,19 +52,15 @@ router.post('/send', async (req, res) => {
     }
 
     try {
-
         // get data from database
         const file = await File.findOne({ uuid: uuid })
-
-        // if (file.sender) {
-        //     return res.status(422).send({ error: 'Email already sent.' })
-        // }
+        if (file.sender) {
+            return res.status(422).send({ error: 'Email already sent.' })
+        }
 
         file.sender = emailFrom;
         file.receiver = emailTo;
         const response = await file.save();
-
-        console.log(response)
 
         // send email
         const sendEmail = require('../services/emailService');
@@ -87,13 +80,9 @@ router.post('/send', async (req, res) => {
 
         //return res.status(200).send({ success: 'email send.' })
         return res.send({ success: 'email send.' })
-        
     } catch (err) {
-        
         return res.send({ err: 'something want wrong.' })
     }
-
 })
-
 
 module.exports = router
