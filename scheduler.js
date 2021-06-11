@@ -7,7 +7,7 @@ connectDB();
 async function deletedOldFiles() {
    const job = schedule.scheduleJob('1 * * * * *', async function () {
         console.log('3434')
-        const pastDate = new Date(Date.now() - 24 * 60 * 60 * 1000);
+        const pastDate = new Date(Date.now() -  6 * 6 * 100);
         
         //const oldFiles = await File.find({ size: { $lt: '2479720' } });
         const oldFiles = await File.find({ createdAt: { $lt: pastDate } });
@@ -17,7 +17,7 @@ async function deletedOldFiles() {
         if (oldFiles.length) {
             for (const file of oldFiles) {
                 try {
-                    fs.unlinkSync(file.path);
+                    //fs.unlinkSync(file.path);
                     await file.remove();
                     console.log(`successfully deleted ${file.filename}`);
                 } catch (err) {
