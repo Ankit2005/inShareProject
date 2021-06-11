@@ -6,7 +6,7 @@ const sendEmail = require('./services/emailService.js');
 connectDB();
 
 async function deletedOldFiles() {
-    const job = schedule.scheduleJob('* * * * * *', async function () {
+    const job = schedule.scheduleJob('1 * * * * *', async function () {
         console.log('3434')
         const pastDate = new Date(Date.now() - 6 * 6 * 100);
 
