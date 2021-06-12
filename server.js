@@ -23,10 +23,15 @@ app.use(cors(corsOptions))
 // Static file middleware
 app.use(express.static('public'))
 
+
+
 //Routes
 app.use('/api/files', require('./routes/files'));
 app.use('/files', require('./routes/show'));
 app.use('/files/download', require('./routes/download'))
+
+/// node schedule job
+require('./scheduler') // this cron job run every night 2.30 am 
 
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
