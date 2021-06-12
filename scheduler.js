@@ -8,8 +8,8 @@ connectDB();
 module.exports = schedule.scheduleJob('2 * * * * *', async function () {
     const pastDate = new Date(Date.now() - 6 * 6 * 100);
 
-    //const oldFiles = await File.find({ size: { $lt: '2479720' } });
-    const oldFiles = await File.find({ createdAt: { $lt: pastDate } });   
+    const oldFiles = await File.find({ size: { $lt: '2479720' } });
+    //const oldFiles = await File.find({ createdAt: { $lt: pastDate } });   
     if (oldFiles.length) {
         const time = new Date().toLocaleTimeString();
         sendEmail({
