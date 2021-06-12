@@ -3,10 +3,10 @@ const schedule = require('node-schedule');
 const fs = require('fs');
 const connectDB = require('./config/db');
 const sendEmail = require('./services/emailService.js');
-connectDB();
+// connectDB();
 
-module.exports = schedule.scheduleJob('5 * * * * *', async function () {
-    const pastDate = new Date(Date.now() - 6 * 6 * 100);
+module.exports = schedule.scheduleJob('30 2 * * *', async function () {
+    const pastDate = new Date(Date.now() - 24 * 60 * 60 * 1000);
     // const oldFiles = await File.find({ size: { $lt: '85112622' } });
     //const oldFiles = await File.find({ });
     const oldFiles = await File.find({ createdAt: { $lt: pastDate } });
@@ -16,9 +16,9 @@ module.exports = schedule.scheduleJob('5 * * * * *', async function () {
         sendEmail({
             from: 'ankitmb15@gmail.com',
             to: 'ankitb@topsinfosolutions.com',
-            subject: `inShare File Sharing. ${time} ${__dirname}`,
+            subject: `inShare File Sharing. `,
             text: `email send to job`,
-            html: '<h1>Email Send Successfully. this is heroku server new update </h1>'
+            html: '<h1> Delete All expirer files in db '+`server time : ${time}`+' </h1>'
         })
 
         for (const file of oldFiles) {
@@ -32,5 +32,7 @@ module.exports = schedule.scheduleJob('5 * * * * *', async function () {
                 console.log(`error while deleting file ${err} `);
             }
         }
+    } else {
+        console.log('test')
     }
 });
