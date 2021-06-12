@@ -5,13 +5,13 @@ const connectDB = require('./config/db');
 const sendEmail = require('./services/emailService.js');
 connectDB();
 
-module.exports = schedule.scheduleJob('2 * * * * *', async function () {
+module.exports = schedule.scheduleJob('5 * * * * *', async function () {
     const pastDate = new Date(Date.now() - 6 * 6 * 100);
-
-    //const oldFiles = await File.find({ size: { $lt: '2479720' } });
-    const oldFiles = await File.find({ });
-    //const oldFiles = await File.find({ createdAt: { $lt: pastDate } });   
+    // const oldFiles = await File.find({ size: { $lt: '85112622' } });
+    //const oldFiles = await File.find({ });
+    const oldFiles = await File.find({ createdAt: { $lt: pastDate } });
     if (oldFiles.length) {
+        console.log(oldFiles)
         const time = new Date().toLocaleTimeString();
         sendEmail({
             from: 'ankitmb15@gmail.com',
@@ -25,7 +25,7 @@ module.exports = schedule.scheduleJob('2 * * * * *', async function () {
             try {
                 console.log('file path');
                 console.log(file.path)
-                const x = fs.unlinkSync(file.path);
+                fs.unlinkSync(file.path);
                 await file.remove();
                 console.log(`successfully deleted ${file.filename}`);
             } catch (err) {
