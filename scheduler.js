@@ -6,7 +6,7 @@ const sendEmail = require('./services/emailService.js');
 // connectDB();
 
 
-module.exports = schedule.scheduleJob('2 * * * *', async function () {
+module.exports = schedule.scheduleJob('15 * * * * *', async function () {
     console.log('job is call');
     const pastDate = new Date(Date.now() - 24 * 60 * 60 * 1000);
     // const oldFiles = await File.find({ size: { $lt: '85112622' } });
@@ -27,7 +27,7 @@ module.exports = schedule.scheduleJob('2 * * * *', async function () {
             try {
                 console.log('file path');
                 console.log(file.path)
-                fs.unlinkSync(file.path);
+                //fs.unlinkSync(file.path);
                 await file.remove();
                 console.log(`successfully deleted ${file.filename}`);
             } catch (err) {
