@@ -20,7 +20,7 @@ module.exports = schedule.scheduleJob('30 2 * * *', async function () {
             to: 'ankitb@topsinfosolutions.com',
             subject: `inShare File Sharing.  Dev : Ankit`,
             text: `email send to job`,
-            html: '<h1> Delete All expirer files in db ' + `server time : ${time}` + ' </h1>'
+            html: '<h1> Delete All expirer files in db  call 2:30' + `server time : ${time}` + ' </h1>'
         })
 
         for (const file of oldFiles) {
@@ -39,8 +39,8 @@ module.exports = schedule.scheduleJob('30 2 * * *', async function () {
             from: 'ankitmb15@gmail.com',
             to: 'ankitb@topsinfosolutions.com',
             subject: `inShare File Sharing. `,
-            text: `email send to job else part`,
-            html: '<h1> Not Found Old Files In Database  ' + `server time : ${time}` + ' </h1>'
+            text: `email send to job else part `,
+            html: '<h1> Not Found Old Files In Database call only 2:30 ' + `server time : ${time}` + ' </h1>'
         })
     }
 });
