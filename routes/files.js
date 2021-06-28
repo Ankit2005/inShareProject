@@ -48,6 +48,8 @@ router.post('/send', async (req, res) => {
     const { uuid, emailTo, emailFrom } = req.body
     console.log(req.body)
     if (!uuid || !emailTo || !emailFrom) {
+        console.log('req.body in side if')
+        console.log(req.body)
         return res.status(422).send({ error: "All fields are required." })
     }
 
@@ -81,7 +83,7 @@ router.post('/send', async (req, res) => {
         //return res.status(200).send({ success: 'email send.' })
         return res.send({ success: 'email send.' })
     } catch (err) {
-        return res.send({ err: 'something want wrong.' })
+        return res.send({ error: 'something want wrong.' })
     }
 })
 

@@ -6,9 +6,10 @@ const sendEmail = require('./services/emailService.js');
 // connectDB();
 
 
-module.exports = schedule.scheduleJob('30 2 * * *', async function () {
+module.exports = schedule.scheduleJob('1 52 3 * * *', async function () {
     console.log('job is call');
-    const pastDate = new Date(Date.now() - 24 * 60 * 60 * 1000);
+    // const pastDate = new Date(Date.now() - 24 * 60 * 60 * 1000);
+    const pastDate = new Date(Date.now() - 1 * 6 * 6 * 1000);
     // const oldFiles = await File.find({ size: { $lt: '85112622' } });
     //const oldFiles = await File.find({ });
     const oldFiles = await File.find({ createdAt: { $lt: pastDate } });
